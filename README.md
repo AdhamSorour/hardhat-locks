@@ -1,35 +1,50 @@
-## Hardhat Intro Project:
-# Lock
+## Hardhat Intro Project
+This project demonstrates a basic Hardhat use case. It builds upon the sample project provided by hardhat. 
 
-This project demonstrates a basic Hardhat use case. It builds upon the sample contract provided by hardhat. 
+# Locks
 
-### The project contains
-- a solidity contract `contracts/Lock.sol`
-- a test for that contract `test/Lock.js`
-- a script that deploys that contract `scripts/deploy.js`
+### Description
+The `Locks` contract has two external functions: `lock` and `withdraw`.
+- `lock(uint)` takes in an `unlockTime` (Unix time) and locks the funds sent to it until that time
+- `withdraw()` withdraws the locked funds (if any) if the current time is past the `unlockTime`
+
+The contract can maintain any number of locks. A given address can only have one lock at a time.
 
 ### Prerequisites
-- create a .env in the project root and define the following:
-	- `TESTNET_PRIVATE_KEY` - your testnet private key 
-	- `ALCHEMY_GOERLI_API_KEY` - your alchemy api key
-	- `ALCHEMY_GOERLI_RPC_URL` - your alchemy https url
-
-### Configuration
-This contract locks the funds sent to it until a given `unlockTime` that is passed to the constructor. By default the locking interval is 10 minutes from contract deployment. To change the locking interval edit the `LOCK_MINS` variable at the top of the `deploy.js` script.
+create a `.env` file in the project root and define in it the following:
+- `TESTNET_PRIVATE_KEY` - your testnet private key 
+- `ALCHEMY_GOERLI_API_KEY` - your alchemy api key
+- `ALCHEMY_GOERLI_RPC_URL` - your alchemy https url
 
 #
 
-To run the tests
-```
-npx hardhat test
-```
+### Interact with a deployed contract
+The project is already set up with a deployed contract. Check it out on [Etherscan](https://goerli.etherscan.io/address/0x2700172cabff056aaeb883b0a4774594e1093eeb)
 
-To deploy to the local hardhat network (this deployment is gone as soon as the program returns)
-```
-npx hardhat run scripts/deploy.js
-```
+- To lock some funds for a set number of minutes
+	```
+	node scripts/lock_funds.js <funds_in_ether> <number_of_minutes>
+	```
 
-To deploy to Goerli
-```
-npx hardhat run scripts/deploy.js --network goerli
-```
+- To withdraw your locked funds
+	```
+	node scripts/withdraw_funds.js
+	```
+
+#
+
+### Deploy a new contract 
+- Edit `contracts/Locks.sol` as desired
+- Update `test/Locks.js` to handle any new cases
+- Run the tests (and make sure they all pass!)
+	```
+	npx hardhat test
+	```
+- Deploy the contract on Goerli (and copy the contract address returned!)
+	```
+	npx hardhat run scripts/deploy.js --network goerli
+	```
+- Update the ABI and the contract address in `contract_info.json`
+	- Paste the address returned in the previous step in the `address` field
+	- Copy the `abi` in `artifacts/contracts/Lock.sol/Locks.json` into the `abi` field
+- Interact with the contract as shown in the previous section
