@@ -40,11 +40,8 @@ The project is already set up with a deployed contract. Check it out on [Ethersc
 	```
 	npx hardhat test
 	```
-- Deploy the contract on Goerli (and copy the contract address returned!)
+- Deploy the contract on Goerli (the deployment address will be written to `contract_deployment.json`)
 	```
 	npx hardhat run scripts/deploy.js --network goerli
 	```
-- Update the ABI and the contract address in `contract_info.json`
-	- Paste the address returned in the previous step in the `address` field
-	- Copy the `abi` in `artifacts/contracts/Lock.sol/Locks.json` into the `abi` field
 - Interact with the contract as shown in the previous section
