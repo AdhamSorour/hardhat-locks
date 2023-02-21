@@ -19,7 +19,7 @@ create a `.env` file in the project root and define in it the following:
 #
 
 ### Interact with a deployed contract
-The project is already set up with a deployed contract. Check it out on [Etherscan](https://goerli.etherscan.io/address/0x2700172cabff056aaeb883b0a4774594e1093eeb)
+The project is already set up with a deployed contract. Check it out on [Etherscan](https://goerli.etherscan.io/address/0x7cb5BFF77f8fdC14D7b8F515BF10f264F0FA334c)
 
 - To lock some funds for a set number of minutes
 	```

@@ -8,10 +8,22 @@ const wallet = new ethers.Wallet(process.env.TESTNET_PRIVATE_KEY, provider);
 async function main() {
 	const locks_contract = new ethers.Contract(address, abi, wallet);
 	const result = await locks_contract.withdraw();
-	console.log(result);
+
+	console.log(`Successfully withdrew funds!`);
+	console.log(`Tx hash: ${result.hash}`);
 }
 
-main().catch((error) => {
-	console.error(error);
+main().catch((e) => {
+	if (e.code === "UNPREDICTABLE_GAS_LIMIT") {
+		if (e.error.reason === "execution reverted") {
+			const secondsRemaining = parseInt('0x' + e.error.error.error.data.slice(66));
+			console.error(`execution reverted: You can't withdraw yet`);
+			console.error(`funds will unlock in ${secondsRemaining} seconds (${secondsRemaining/60} minutes)`);
+		} else {
+			console.error(e.error.reason);
+		}
+	} else { 
+		console.error(`Error: ${e.reason}`);
+	}
 	process.exitCode = 1;
 });

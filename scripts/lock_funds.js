@@ -17,10 +17,16 @@ async function main() {
 	const locks_contract = new ethers.Contract(address, abi, wallet);
 	const result = await locks_contract.lock(unlockTime, { value: lockedAmount });
 
-	console.log(result);
+	console.log(`Successfully locked ${ethers.utils.formatEther(lockedAmount)} ether!`);
+	console.log(`Funds will be unlocked and available for withdrawal in ${minutes} minutes`);
+	console.log(`Tx hash: ${result.hash}`);
 }
 
-main().catch((error) => {
-	console.error(error);
+main().catch((e) => {
+	if (e.code == "UNPREDICTABLE_GAS_LIMIT") {
+		console.error(e.error.reason);
+	} else { 
+		console.error(`Error: ${e.reason}`);
+	}
 	process.exitCode = 1;
 });

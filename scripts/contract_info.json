@@ -1,6 +1,17 @@
 {
-	"address": "0x2700172cabFF056AaEB883B0A4774594E1093eEB",
+	"address": "0x7cb5BFF77f8fdC14D7b8F515BF10f264F0FA334c",
 	"abi": [
+		{
+			"inputs": [
+				{
+					"internalType": "uint256",
+					"name": "timeLeft",
+					"type": "uint256"
+				}
+			],
+			"name": "earlyWithdrawal",
+			"type": "error"
+		},
 		{
 			"anonymous": false,
 			"inputs": [

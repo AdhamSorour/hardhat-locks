@@ -20,10 +20,13 @@ contract Locks {
         locks[msg.sender] = Lock(msg.value, unlockTime);
     }
 
+    error earlyWithdrawal(uint timeLeft);
     function withdraw() external {
         // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
         require(locks[msg.sender].amount > 0, "You have no locked funds");
-        require(block.timestamp >= locks[msg.sender].unlockTime, "You can't withdraw yet");
+        if (block.timestamp < locks[msg.sender].unlockTime) {
+            revert earlyWithdrawal(locks[msg.sender].unlockTime - block.timestamp);
+        }
 
         emit Withdrawal(msg.sender, locks[msg.sender].amount, block.timestamp);
 
