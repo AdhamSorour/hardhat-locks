@@ -11,15 +11,28 @@ The `Locks` contract has two external functions: `lock` and `withdraw`.
 The contract can maintain any number of locks. A given address can only have one lock at a time.
 
 ### Prerequisites
-create a `.env` file in the project root and define in it the following:
-- `TESTNET_PRIVATE_KEY` - your testnet private key 
-- `ALCHEMY_GOERLI_API_KEY` - your alchemy api key
-- `ALCHEMY_GOERLI_RPC_URL` - your alchemy https url
+- Node.js
+- Alchemy Account (API key)
+- Ethereum Account (private key)
+
+### Setup
+- install the packages
+	```
+	npm install
+	```
+- create a `.env` file in the project root and define in it the following:
+	- `TESTNET_PRIVATE_KEY` - your testnet private key 
+	- `ALCHEMY_GOERLI_API_KEY` - your alchemy api key
+	- `ALCHEMY_GOERLI_RPC_URL` - your alchemy https url
 
 #
 
 ### Interact with a deployed contract
 The project is already set up with a deployed contract. Check it out on [Etherscan](https://goerli.etherscan.io/address/0x7cb5BFF77f8fdC14D7b8F515BF10f264F0FA334c)
+- Compile the smart contract (this generates the ABI)
+	```
+	npx hardhat compile
+	```
 
 - To lock some funds for a set number of minutes
 	```
